@@ -3,8 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-
-inline int min(int a, int b)
+int min(int a, int b)
 {
     if(a < b) return a;
     return b;
@@ -15,8 +14,30 @@ int main()
     double time_spent;
     int i, j, k, a, b, c, ii, jj, kk, jump = 20;
     scanf("%d %d %d", &a, &b, &c);
-    int m1[a][b],m2[b][c],m3[a][c];
-    memset(m3, 0,sizeof(int)*a*c);
+    int **m1 = malloc(sizeof *m1 * a);
+    if(m1)
+	{
+		for(i = 0; i < a; i++)
+		{
+			m1[i] = malloc(sizeof * m1[i]*b);
+		}
+	}
+	int **m2 = malloc(sizeof *m2 * b);
+	if(m2)
+	{
+		for(i = 0; i < b; i++)
+		{
+			m2[i] = malloc(sizeof * m2[i]*c);
+		}
+	}
+	int **m3 = malloc(sizeof *m3 * a);
+	if(m3)
+	{
+		for(i = 0; i < a; i++)
+		{
+			m3[i] = malloc(sizeof * m3[i]*c);
+		}
+	}
     for(i = 0; i < a; i++)
     {
         for(j = 0; j < b; j++)
@@ -29,6 +50,13 @@ int main()
         for(j = 0; j < c; j++)
         {
             m2[i][j] = 1;
+        }
+    }
+	for(i = 0; i < a; i++)
+    {
+        for(j = 0; j < c; j++)
+        {
+            m3[i][j] = 0;
         }
     }
     clock_t begin = clock();
@@ -51,9 +79,10 @@ int main()
                 }
             }
         }
-    }
+	}
     clock_t end = clock();
     time_spent = (double)(end-begin) /CLOCKS_PER_SEC;
     printf("%f\n", time_spent);
+
     return 0;
 }
