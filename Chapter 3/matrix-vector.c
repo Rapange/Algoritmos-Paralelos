@@ -58,6 +58,7 @@ void Mat_vect_mult(double local_A[], double local_x[], double local_y[], int loc
 int main(){
   int comm_sz;
   int my_rank;
+  double start,finish;
   //const int n=4, m = 3;
   int n=2,m=2, local_n,local_m;
   /*double A[] = {1,2,3,4,5,6,7,8,9,10,11,12};
@@ -71,8 +72,11 @@ int main(){
   double local_x[local_n],local_y[local_m],local_A[local_n*local_m];
   Read_vector(local_A,local_n*local_m,n*m,"A",my_rank,MPI_COMM_WORLD);
   Read_vector(local_x,local_n,n,"x",my_rank,MPI_COMM_WORLD);
+  start = MPI_Wtime();
   Mat_vect_mult(local_A, local_x, local_y, local_m,n,local_n,MPI_COMM_WORLD);
+  finish = MPI_Wtime();
   Print_vector(local_y,local_m,m,"y", my_rank,MPI_COMM_WORLD);
+  printf("Proc %d > Elapsed time = %e seconds\n", my_rank, finish-start);
   MPI_Finalize();
   return 0;
 }
