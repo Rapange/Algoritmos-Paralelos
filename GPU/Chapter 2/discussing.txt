@@ -1,0 +1,16 @@
+Asumiendo que se usan la misma cantidad de bloques e hilos para todos los casos.
+
+matrix_addition.cu
+Todos los hilos creados son usados (a excepcion con el ultimo bloque).
+Hay mas granularidad en el paralelismo.
+Se asegura que los datos a operar entren en la cache.
+
+matrix_addition_row.cu
+Todos los hilos creados no son usados (hay buena cantidad de hilos no usados por cada bloque).
+Hay menos granularidad en el paralelismo.
+Se aprovecha mejor la cache que en el matrix_addition_column.cu
+
+matrix_addition_column.cu
+Todos los hilos creados no son usados (hay buena cantidad de hilos no usados por cada bloque).
+Hay menos granularidad en el paralelismo.
+Se aprovecha peor la cache que en los dos anteriores.
