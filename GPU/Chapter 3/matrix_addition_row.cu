@@ -3,8 +3,10 @@
 __global__
 void matAddKernel(float *A, float *B, float *C, int n){
   int i = threadIdx.x + blockDim.x * blockIdx.x, j;
-  for(j = 0; j < n; j++){
-     if(i < n) C[i*n+j] = A[i*n+j] + B[i*n+j];
+  if(i < n){
+    for(j = 0; j < n; j++){
+       C[i*n+j] = A[i*n+j] + B[i*n+j];
+    }
   }
   
 }
