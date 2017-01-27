@@ -45,8 +45,8 @@ void Picture(unsigned char* Pin, unsigned char* Pout, int n, int m){
   cudaMemcpy(d_Pin, Pin, size, cudaMemcpyHostToDevice);
   cudaMalloc((void **) &d_Pout,size);
 
-  dim3 gridDim((n-1)/16+1,(m-1)/16+1,1);
-  dim3 blockDim(16,16,1);
+  dim3 gridDim((m-1)/8+1,(n-1)/16+1,1);
+  dim3 blockDim(8,16,1);
   PictureKernell<<<gridDim,blockDim>>>(d_Pin,d_Pout,n,m);
   //PictureKernel1D<<<(size-1)/256+1,256>>>(d_Pin,d_Pout,n,m);
   cudaMemcpy(Pout, d_Pout, size, cudaMemcpyDeviceToHost);
